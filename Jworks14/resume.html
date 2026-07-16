@@ -1,0 +1,59 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Resume | Jworks14</title>
+<link rel="stylesheet" href="css/mystyle14.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container">
+            <nav class="navbar">
+                <a class="logo" href="index.html">
+                    <img src="images/Jworks Photos/Works14-noback.png" alt="JW-logo">
+                </a>
+
+                <input type="checkbox" id="nav-tog" class="nav-tog" aria-label="Open Menu"/>
+                <label for="nav-tog" class="hamburger" aria-hidden="true">&#9776;</label>
+
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="projects.html">Projects</a></li>
+                    <li><a href="resume.html" aria-current="page">Resume</a></li>
+                    <li><a href="contact.html">Contact</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h1 class="hero-title">Resume</h1>
+                <p class="hero-subtitle">Download a copy or view it below.</p>
+                <div class="hero-actions">
+                    <a href="files/IT-ResumeNV.pdf" class="btn btn-primary" download>Download Resume (PDF)</a>
+                </div>
+            </div>
+        </section>
+        <!-- <object> embeds the PDF directly in the page; the fallback <p> inside it only
+             shows if the browser can't render PDFs inline -->
+        <section class="case-study">
+            <div class="container">
+                <object data="files/IT-ResumeNV.pdf" type="application/pdf" class="pdf-viewer">
+                    <p>Your browser can't display the PDF inline. <a href="files/IT-ResumeNV.pdf" download>Download it here</a> instead.</p>
+                </object>
+            </div>
+        </section>
+    </main>
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; 2026 JWorks14 · Josiah Islas</p>
+        </div>
+    </footer>
+
+</body>
+</html>

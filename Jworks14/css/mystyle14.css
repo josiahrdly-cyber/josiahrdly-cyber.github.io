@@ -1,0 +1,460 @@
+/* Color/spacing variables reused everywhere below — change these to re-theme the whole site */
+:root {
+  --backg: #fff8e6;
+  --ink: #2c2c2c;
+  --accent: #7a1c1c;
+  --radius: 14px;
+  --shadow: 0 8px 20px rgba(0,0,0,.08);
+}
+
+/* Small reset for consistent look */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  color: var(--ink);
+  background: var(--backg);
+  font: 16px/1.6 system-ui, Segoe UI, Roboto, Arial, sans-serif;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.container {
+  width: min(1100px, 92%);
+  margin-inline: auto;
+}
+
+/* Header shell */
+.site-header {
+  position: sticky;
+  top: 0;
+  background: var(--backg);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  backdrop-filter: blur(6px);
+  z-index: 100;
+}
+
+/* Nav layout */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 0;
+  gap: 12px;
+  position: relative;
+}
+
+.logo img {
+  height: 42px;
+}
+
+/* Mobile first: checkbox + hamburger controls a slide-down menu */
+.nav-tog {
+  display: none;
+}
+
+.hamburger {
+  font-size: 28px;
+  cursor: pointer;
+  padding: 6px 10px;
+  border-radius: 12px;
+}
+
+.hamburger:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.nav-links {
+  list-style: none;
+  margin: 0;
+  padding: 12px 16px 16px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  background: var(--backg);
+  box-shadow: var(--shadow);
+  transform: translateY(-16px);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.25s ease, opacity 0.18s ease;
+  display: grid;
+  gap: 8px;
+}
+
+.nav-links a {
+  display: block;
+  padding: 10px 12px;
+  border-radius: 12px;
+}
+
+.nav-links a[aria-current=page] {
+  background: rgba(122, 31, 43, 0.08);
+  font-weight: 600;
+}
+
+/* When checkbox is checked, show the menu */
+.nav-tog:checked ~ .nav-links {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ===== Hero banner (page title section at top of every page) ===== */
+.hero {
+  padding: 48px 0 64px;
+}
+
+.hero-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  align-items: center;
+  text-align: center;
+}
+
+.hero-tag {
+  font-size: 0.9rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(44, 44, 44, 0.7);
+  margin-bottom: 8px;
+}
+
+.hero-title {
+  font-size: clamp(2rem, 5vw, 2.8rem);
+  margin: 0 0 8px;
+}
+
+.hero-subtitle {
+  max-width: 36rem;
+  margin: 0 auto 20px;
+  color: rgba(44, 44, 44, 0.85);
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+/* ===== Home/About intro blurb + the photo layout on about.html ===== */
+.home-about {
+  padding: 32px 0 48px;
+}
+
+.home-about h2 {
+  font-size: 1.4rem;
+  margin-bottom: 8px;
+}
+
+.home-about p {
+  max-width: 40rem;
+  margin: 0 0 12px;
+  color: rgba(44, 44, 44, 0.9);
+}
+
+.about-more {
+  display: inline-block;
+  color: var(--accent);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.about-more:hover {
+  text-decoration: underline;
+}
+
+.about-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+.about-photo {
+  max-width: 220px;
+  width: 100%;
+  flex-shrink: 0;
+}
+
+.about-photo img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  object-position: center 15%;
+  border-radius: 50%;
+  box-shadow: var(--shadow);
+}
+
+.about-text p {
+  max-width: 40rem;
+  margin: 0 0 16px;
+  color: rgba(44, 44, 44, 0.9);
+}
+
+.about-text h3 {
+  margin: 24px 0 8px;
+  font-size: 1.1rem;
+  color: var(--accent);
+}
+
+.about-text h3:first-child {
+  margin-top: 0;
+}
+
+/* ===== Buttons: solid .btn-primary and outlined .btn-ghost variants ===== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 18px;
+  border-radius: var(--radius);
+  border: 1px solid transparent;
+  font-size: 0.95rem;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: #fff;
+}
+
+.btn-primary:hover {
+  filter: brightness(1.05);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--accent);
+  border-color: rgba(122, 28, 28, 0.35);
+}
+
+.btn-ghost:hover {
+  background: rgba(122, 28, 28, 0.05);
+}
+
+.hero-media {
+  max-width: 260px;
+  width: 100%;
+}
+
+.hero-card {
+  border-radius: 24px;
+  padding: 20px;
+  box-shadow: var(--shadow);
+  background: #fffbf0;
+}
+
+.hero-card img {
+  width: 100%;
+  height: auto;
+}
+
+/* ===== Breakpoint: tablet/desktop layout (nav bar goes horizontal, hero goes side-by-side) ===== */
+@media (min-width: 860px) {
+  .hamburger {
+    display: none;
+  }
+  .nav-links {
+    position: static;
+    transform: none;
+    opacity: 1;
+    pointer-events: auto;
+    background: transparent;
+    box-shadow: none;
+    display: flex;
+    gap: 18px;
+    padding: 0;
+  }
+  .nav-links a {
+    padding: 8px 10px;
+  }
+  .hero {
+    padding: 72px 0 96px;
+  }
+  .hero-inner {
+    flex-direction: row;
+    align-items: center;
+    text-align: left;
+  }
+  .hero-text {
+    flex: 2;
+  }
+  .hero-media {
+    flex: 1;
+  }
+  .hero-subtitle {
+    margin-left: 0;
+    margin-right: 0;
+  }
+  .hero-actions {
+    justify-content: flex-start;
+  }
+  .about-inner {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 40px;
+  }
+}
+/* ===== Breakpoint: small phones (tighter spacing, full-width stacked buttons) ===== */
+@media (max-width: 480px) {
+  .hero {
+    padding: 32px 0 48px;
+  }
+  .hero-title {
+    font-size: 1.9rem;
+  }
+  .hero-subtitle {
+    font-size: 0.95rem;
+  }
+  .hero-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .btn {
+    width: 100%;
+  }
+  .hero-media {
+    max-width: 220px;
+  }
+}
+/* ===== Projects page: grid of project-card tiles, grouped by section ===== */
+.projects-group {
+  padding: 32px 0;
+}
+.projects-group h2 {
+  font-size: 1.4rem;
+  margin-bottom: 16px;
+}
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 20px;
+}
+.project-card {
+  background: #fffbf0;
+  border-radius: 14px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  padding: 20px;
+}
+.project-card h3 {
+  margin: 0 0 8px;
+  font-size: 1.1rem;
+}
+.project-card img {
+  border-radius: 10px;
+  margin-bottom: 12px;
+}
+.project-card p {
+  margin: 0 0 12px;
+  color: rgba(44, 44, 44, 0.85);
+}
+.project-card .tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.project-card .tag {
+  font-size: 0.75rem;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: rgba(122, 28, 28, 0.08);
+  color: var(--accent);
+}
+.project-card .btn {
+  margin-top: 8px;
+}
+
+/* ===== Case-study write-up pages (projects/*.html): headings, code blocks, tag list ===== */
+.case-study {
+  padding: 16px 0 48px;
+}
+.case-study .container {
+  max-width: 760px;
+}
+.case-study h2 {
+  margin: 32px 0 8px;
+  font-size: 1.25rem;
+  color: var(--accent);
+}
+.case-study h2:first-of-type {
+  margin-top: 0;
+}
+.case-study p,
+.case-study ul,
+.case-study ol {
+  margin: 0 0 16px;
+  color: rgba(44, 44, 44, 0.9);
+}
+.case-study ul,
+.case-study ol {
+  padding-left: 20px;
+}
+.case-study li {
+  margin-bottom: 6px;
+}
+.case-study pre {
+  background: var(--ink);
+  color: var(--backg);
+  border-radius: var(--radius);
+  padding: 16px 18px;
+  overflow-x: auto;
+  margin: 0 0 16px;
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+.case-study code {
+  font-family: Consolas, "Courier New", monospace;
+}
+.case-study .tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.case-study .tag {
+  font-size: 0.75rem;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: rgba(122, 28, 28, 0.08);
+  color: var(--accent);
+}
+.case-study img {
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  margin-bottom: 16px;
+}
+
+/* Resume page: the embedded PDF <object> */
+.pdf-viewer {
+  width: 100%;
+  height: 80vh;
+  border: none;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+/* ===== Footer — same on every page ===== */
+.site-footer {
+  padding: 24px 0 32px;
+  font-size: 0.85rem;
+  color: rgba(44, 44, 44, 0.7);
+}
