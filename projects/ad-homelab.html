@@ -1,0 +1,120 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Windows Server Home Lab — Active Directory Domain | Jworks14</title>
+<link rel="stylesheet" href="../css/mystyle14.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container">
+            <nav class="navbar">
+                <a class="logo" href="../index.html">
+                    <img src="../images/Jworks Photos/Works14-noback.png" alt="JW-logo">
+                </a>
+
+                <input type="checkbox" id="nav-tog" class="nav-tog" aria-label="Open Menu"/>
+                <label for="nav-tog" class="hamburger" aria-hidden="true">&#9776;</label>
+
+                <ul class="nav-links">
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../about.html">About</a></li>
+                    <li><a href="../projects.html" aria-current="page">Projects</a></li>
+                    <li><a href="../resume.html">Resume</a></li>
+                    <li><a href="../contact.html">Contact</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <p class="hero-tag">IT / Desktop Support Project</p>
+                <h1 class="hero-title">Windows Server Home Lab — Active Directory Domain from Scratch</h1>
+                <p class="hero-subtitle"><a href="../projects.html">&larr; Back to Projects</a></p>
+            </div>
+        </section>
+
+        <section class="case-study">
+            <div class="container">
+                <h2>The Goal</h2>
+                <p>Nearly every IT support job posting lists Active Directory experience — but it's hard to get AD experience without already working in IT. My solution: build my own. Using VirtualBox on my laptop, I deployed a Windows Server 2022 virtual machine, promoted it to a domain controller, and practiced the day-to-day tasks help desk technicians perform in real environments: managing users, resetting passwords, organizing groups, and configuring Group Policy.</p>
+
+                <h2>The Setup</h2>
+                <ul>
+                    <li><strong>Host:</strong> My personal laptop (12GB RAM, NVMe SSD)</li>
+                    <li><strong>Hypervisor:</strong> Oracle VirtualBox</li>
+                    <li><strong>Guest OS:</strong> Windows Server 2022 Standard Evaluation (Desktop Experience)</li>
+                    <li><strong>VM specs:</strong> 3GB RAM, 2 CPUs, 60GB dynamically allocated disk</li>
+                </ul>
+                <p>With limited host RAM, I sized the VM deliberately — enough to run Active Directory Domain Services comfortably while leaving headroom for the host OS.</p>
+                <img src="../images/Homelab Screenshots/ad-lab-vm-summary.png" alt="VirtualBox New Virtual Machine summary showing DC01, Windows Server 2022, 3GB RAM, 2 CPUs, 60GB disk">
+
+                <h2>Building the Domain Controller</h2>
+                <ol>
+                    <li><strong>Created the VM (DC01)</strong> in VirtualBox and installed Windows Server 2022 with the Desktop Experience.</li>
+                    <li><strong>Renamed the server to DC01</strong> — VirtualBox's VM label doesn't change the name inside Windows, so I verified the actual hostname from the command line and renamed it through Server Manager's system properties.</li>
+                    <li><strong>Assigned a static IP address</strong> with the server pointing to itself for DNS — standard practice for a domain controller, since AD depends on DNS.</li>
+                    <li><strong>Installed the Active Directory Domain Services role</strong> through Server Manager and promoted the server to a domain controller, creating a new forest: <strong>islas.local</strong>.</li>
+                </ol>
+                <p>After the promotion reboot, the login screen read <strong>ISLAS\Administrator</strong> — confirmation the domain was live.</p>
+                <img src="../images/Homelab Screenshots/ad-lab-dc01-login.png" alt="DC01 running in VirtualBox with the ISLAS\\Administrator domain login screen">
+
+                <h2>Administering the Domain</h2>
+                <p>With the domain running, I practiced the core tasks of real IT support work in <strong>Active Directory Users and Computers (ADUC)</strong>:</p>
+                <ul>
+                    <li><strong>Built an Organizational Unit (OU)</strong> called Employees to structure the domain the way real companies do</li>
+                    <li><strong>Created domain user accounts</strong> using standard naming conventions, with "user must change password at next logon" enabled — mirroring a real new-hire onboarding process</li>
+                    <li><strong>Performed password resets</strong> — the single most common help desk ticket</li>
+                    <li><strong>Practiced account lifecycle tasks</strong> like disabling accounts (offboarding) and editing user properties</li>
+                    <li><strong>Created a security group (IT Staff)</strong> and managed group membership — the foundation of how organizations control access to resources</li>
+                </ul>
+                <img src="../images/Homelab Screenshots/ad-lab-aduc-employees.png" alt="Active Directory Users and Computers showing the Employees OU with three domain user accounts">
+                <img src="../images/Homelab Screenshots/ad-lab-password-reset.png" alt="Confirmation dialog showing a successful domain password reset">
+                <img src="../images/Homelab Screenshots/ad-lab-it-staff-group.png" alt="IT Staff security group properties showing group membership">
+
+                <h2>Group Policy</h2>
+                <p>Using the <strong>Group Policy Management Console</strong>, I created a GPO linked to the Employees OU and configured:</p>
+                <ul>
+                    <li><strong>A password policy</strong> requiring a minimum length of 12 characters with complexity requirements</li>
+                    <li><strong>A workstation lockdown policy</strong> prohibiting access to Control Panel and PC Settings — a common restriction for standard user machines</li>
+                </ul>
+                <img src="../images/Homelab Screenshots/ad-lab-gpo-password-policy.png" alt="Group Policy Management Editor showing the minimum password length setting configured to 12 characters">
+
+                <h2>Troubleshooting Along the Way</h2>
+                <ul>
+                    <li><strong>VirtualBox's unattended installation trap:</strong> By default, VirtualBox tries to auto-install the OS, which skips the edition-selection screens needed to choose Desktop Experience. I caught the "Proceed with Unattended Installation" checkbox before creating the VM and disabled it so I could perform the installation manually.</li>
+                    <li><strong>VM label vs. actual hostname:</strong> Naming the VM "DC01" in VirtualBox doesn't rename the Windows installation itself. I verified the real hostname with the <code>hostname</code> command and performed the rename inside Windows before promoting the server — important, since renaming a domain controller after promotion is much messier.</li>
+                </ul>
+
+                <h2>What I Learned</h2>
+                <ul>
+                    <li>How Active Directory, DNS, and domain controllers fit together</li>
+                    <li>Hands-on fluency with the tools help desk teams live in daily: Server Manager, ADUC, and Group Policy Management</li>
+                    <li>The full user account lifecycle: creation, password resets, group membership, and disabling accounts</li>
+                    <li>Resource planning for virtualization on constrained hardware</li>
+                </ul>
+
+                <h2>Skills Demonstrated</h2>
+                <div class="tags">
+                    <span class="tag">Active Directory</span>
+                    <span class="tag">Windows Server 2022</span>
+                    <span class="tag">DNS</span>
+                    <span class="tag">Group Policy</span>
+                    <span class="tag">VirtualBox</span>
+                    <span class="tag">User &amp; Group Administration</span>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; 2026 JWorks14 · Josiah Islas</p>
+        </div>
+    </footer>
+
+</body>
+</html>
